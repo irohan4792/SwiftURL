@@ -1,12 +1,44 @@
-import logo from "./logo.svg";
+import { useState, useRef } from "react";
 import "./App.css";
 
+
 function App() {
+  const [message, setMessage] = useState('');
+  const handleClick = async() =>{
+  
+      const response = await fetch(
+        `https://tinyurl.com/api-create.php?url=`+message
+      );
+      if (response.status === 200) {
+        const data = await response.text();
+        handleValue(data)
+      } else {
+        inputref.current.value = "Unable to generate URL"
+        // inputUrl.value = "";
+        // content.innerHTML = `<h1 style="text-align:center; color: #fff">Invalid URL ‼</h1>`;
+        // const body = document.querySelector("body");
+        // body.style.flexDirection = "column";
+        setTimeout(() => {
+            }, 2000);
+      }
+  }
+  const inputref = useRef(null);
+  const handleValue = (data) =>{
+    inputref.current.value=data
+  }
+const handleSubmit = (e) =>{
+  e.preventDefault()
+}
+const handleChange = event => {
+  setMessage(event.target.value);
+};
   return (
+    <>
+    {/* {loading ? <Loader /> : <Togglebutton />} */}
     <div className="maindiv">
       <div class="card">
         <div class="card2">
-          <form class="form">
+          <form class="form" onSubmit={handleSubmit}>
             <p id="heading">Login</p>
             <div class="field">
               <svg
@@ -21,9 +53,11 @@ function App() {
               </svg>
               <input
                 type="text"
+                value={message}
+                onChange={handleChange}
                 class="input-field"
-                placeholder="Username"
-                autocomplete="off"
+                placeholder="Enter URL"
+                autoComplete="off"
               />
             </div>
             <div class="field">
@@ -38,16 +72,18 @@ function App() {
                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
               </svg>
               <input
-                type="password"
+                type="link"
+                ref={inputref}
                 class="input-field"
-                placeholder="Password"
-              />
+                placeholder="Converted URL"
+                />
             </div>
-            <button class="button3">Forgot Password</button>
+            <button onClick={handleClick} class="button3">Convert</button>
           </form>
         </div>
       </div>
     </div>
+                </>
   );
 }
 
