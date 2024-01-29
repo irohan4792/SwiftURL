@@ -31,6 +31,9 @@ const handleSubmit = (e) =>{
 const handleChange = event => {
   setMessage(event.target.value);
 };
+const handleCopy=()=>{
+  navigator.clipboard.writeText(inputref.current.value)
+}
   return (
     <>
     {/* {loading ? <Loader /> : <Togglebutton />} */}
@@ -59,6 +62,7 @@ const handleChange = event => {
                 class="input-field"
                 placeholder="Converted URL"
                 />
+                <button id="clipboard" onClick = {handleCopy}>Copy</button>
             </div>
             <button onClick={handleClick} class="button3">Convert</button>
           </form>
