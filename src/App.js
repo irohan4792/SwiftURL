@@ -60,7 +60,7 @@ const handleCopy=()=>{
                 type="link"
                 ref={inputref}
                 class="input-field"
-                placeholder="Converted URL"
+                placeholder="Shortened URL"
                 />
                 <button id="clipboard" onClick = {handleCopy}>Copy</button>
             </div>
