@@ -12,14 +12,12 @@ function App() {
     }, 1000)
   }, [])
   
-
-
-  
   const handleClick = async() =>{
   
       const response = await fetch(
         `https://tinyurl.com/api-create.php?url=`+message
       );
+      
       if (response.status === 200) {
         const data = await response.text();
         handleValue(data)
